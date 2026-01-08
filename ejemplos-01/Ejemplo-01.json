@@ -1,0 +1,95 @@
+{
+  "name": "Ejemplo-01",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1KBYKHoNjknV9zyVQdWKvS0FW99bJCqrzkQbKwQxH7FE",
+          "mode": "list",
+          "cachedResultName": "data-n8n-ejemplo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KBYKHoNjknV9zyVQdWKvS0FW99bJCqrzkQbKwQxH7FE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1KBYKHoNjknV9zyVQdWKvS0FW99bJCqrzkQbKwQxH7FE/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7396ff4a-4f6f-4451-b6a4-8397eb3ad6cc",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "rhgIG06ny88fUQk6",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Correo }}",
+        "subject": "=Welcome  {{ $json.Nombre }}",
+        "message": "=Hello Sr/Sra  {{ $json.Nombre }} \n\nEste es un mensaje de bienvenida para {{ $json.Correo }}\n\nAhora eres una parte importante de nuetra empresa como {{ $json.Tipo }}\n\nUn cordial saludo ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "33d800f2-a20e-4bdf-be1e-c3854a1bd2d6",
+      "name": "Send a message",
+      "webhookId": "38ef50e3-896d-4850-a806-9a48f16e380f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "UPSngsnKRLUnfkE4",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "3d6d9143-092a-41c3-83e2-2434a8b13551",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "934c93cb4becd506322c0c370449c9442dbd50a5042b754b5fcdaed8ddc9fd03"
+  },
+  "id": "XV9Nz6z__bkAxk3Lianhg",
+  "tags": []
+}
