@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: n8n_gonzalo
+      POSTGRES_PASSWORD: n8n_gonzalo
+      POSTGRES_DB: hito3_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # Ahora que init.sql está en /docker, usamos ./
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_DATABASE=hito3_db
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_USER=n8n_gonzalo
+      - DB_POSTGRESDB_PASSWORD=n8n_gonzalo
+      - N8N_ENCRYPTION_KEY=gonzalo_secret_key
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  qdrant_data:
